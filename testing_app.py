@@ -285,6 +285,7 @@ def build_main_layout(start_case_id):
         ]
     )
 
+    # Info card WITH submit button + message inside
     info_card = dbc.Card(
         [
             dbc.CardBody([
@@ -345,6 +346,28 @@ def build_main_layout(start_case_id):
                     value=None,
                     tooltip={"placement": "bottom", "always_visible": True}
                 ),
+                html.Br(),
+                # moved Submit & Next button into the card
+                dbc.Button(
+                    "Submit & Next",
+                    id="submit-button",
+                    n_clicks=0,
+                    style={
+                        'font-size': '26px',
+                        'marginTop': '20px',
+                        'width': '100%',
+                        'background-color': 'black',
+                        'color': 'white',
+                        'border': '2px solid white'
+                    }
+                ),
+                # message area for validation warnings
+                html.Div(
+                    id="submit-message",
+                    style={
+                        "marginTop": "10px"
+                    }
+                ),
             ])
         ],
         style={
@@ -352,42 +375,6 @@ def build_main_layout(start_case_id):
             'border': '1px solid white',
             'padding-top': '20px',
         }
-    )
-
-    NavButton = dbc.Container(
-        dbc.Row(
-            dbc.Col(
-                [
-                    html.Div(
-                        id="submit-message",
-                        style={
-                            "marginTop": "5px",
-                            "marginLeft": "810px",
-                            "width": "60%"
-                        }
-                    ),
-                    dbc.Button(
-                        "Submit & Next",
-                        id="submit-button",
-                        class_name='w-50',
-                        n_clicks=0,
-                        style={
-                            'font-size': '26px',
-                            'margin-top': '5px',
-                            'margin-bottom': '10px',
-                            'margin-left': '810px',
-                            'width': '60%',
-                            'background-color': 'black',
-                            'color': 'white',
-                            'border': '2px solid white'
-                        }
-                    ),
-                ],
-                width=4
-            ),
-            justify="center",
-        ),
-        fluid=False
     )
 
     hidden_case_id = html.Div(
@@ -405,20 +392,21 @@ def build_main_layout(start_case_id):
             'height': '100vh'
         },
         children=[
-            dbc.Container([
-                dbc.Row([
-                    dbc.Col(cc_image_block, width=4),
-                    dbc.Col(ml_image_block, width=4),
-                    dbc.Col(info_card, width=4)
-                ], justify="between"),
-                dbc.Row(
-                    dbc.Col(NavButton, width=12),
-                    justify="center",
-                    className="mt-4"
-                ),
-                hidden_case_id,
-                dcc.Store(id="previous-case-id", data=str(start_case_id)),
-            ], fluid=True)
+            dbc.Container(
+                [
+                    dbc.Row(
+                        [
+                            dbc.Col(cc_image_block, width=4),
+                            dbc.Col(ml_image_block, width=4),
+                            dbc.Col(info_card, width=4),
+                        ],
+                        justify="between",
+                    ),
+                    hidden_case_id,
+                    dcc.Store(id="previous-case-id", data=str(start_case_id)),
+                ],
+                fluid=True,
+            )
         ]
     )
 
