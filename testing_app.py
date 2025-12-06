@@ -310,7 +310,7 @@ def build_main_layout(start_case_id):
                     style={'font-size': '30px', 'color': 'white'}
                 ),
                 html.P(
-                    f"Calcification longest span: {row['calcification_span']}",
+                    f"Calcification longest span (mm): {row['calcification_span']}",
                     id="calc-span-label",
                     style={'font-size': '30px', 'color': 'white'}
                 ),
@@ -625,7 +625,7 @@ def update_case_display(case_id, current_pathology, current_birads,
     age_text = f"Patient age: {row['patient_age']}"
     race_text = f"Patient race: {pretty_race(row['patient_race'])}"
     ethnicity_text = f"Patient ethnicity: {pretty_ethnicity(row['patient_ethnicity'])}"
-    span_text = f"Calcification longest span: {row['calcification_span']}"
+    span_text = f"Calcification longest span (mm): {row['calcification_span']}"
 
     img1, img2 = load_imgs(row["case_id"])
     fig1 = create_image_fig(img1)
